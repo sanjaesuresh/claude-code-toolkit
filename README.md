@@ -27,7 +27,7 @@ checks, and Diataxis docs.
 This toolkit **does not depend on gstack** and does not clone it. It is simpler,
 private, and hardened for work use:
 
-- ~22 skills + ~17 agents, all plain markdown — no external binaries, no telemetry,
+- ~23 skills + ~17 agents, all plain markdown — no external binaries, no telemetry,
   no analytics directory, no required browser automation.
 - Every reusable file is generic; nothing proprietary is ever persisted globally.
 - Safety hooks are minimal and "careful, not annoying" (confirm, don't block).
@@ -44,7 +44,7 @@ claude-code-toolkit/
   global/                          # installs into ~/.claude
     CLAUDE.md                      # global operating instructions
     settings.json                  # safe starter settings + hooks
-    skills/<name>/SKILL.md         # 22 reusable skills
+    skills/<name>/SKILL.md         # 23 reusable skills
     agents/<name>.md               # 17 reusable subagents
   templates/                       # examples to copy into real repos
     project-claude.md              # example project CLAUDE.md
@@ -105,6 +105,17 @@ bash scripts/validate-claude-config.sh --repo # checks this repo's global/
 
 Invoke any skill by `/name` (or just describe the task — descriptions are written
 so Claude auto-invokes the right one).
+
+### Build something (the default loop)
+
+```
+/software-engineer
+```
+
+The everyday engineering loop: understand → plan → implement in small steps →
+verify with evidence → self-review before declaring done. It's the orchestrator
+that pulls in the specialists below at the right moments and holds scope tight.
+Use it when you're actually building or fixing and no more specific skill fits.
 
 ### Plan first
 
