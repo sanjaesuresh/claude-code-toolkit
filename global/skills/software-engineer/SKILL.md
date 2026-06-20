@@ -12,6 +12,7 @@ loop; reach for a specialist skill when one clearly fits better.
 
 ## When NOT to use this
 
+- Starting from a ticket or fresh feature (branch + interactive planning) → `/kickoff`.
 - Pure product framing / "should I build this" → `/office-hours`.
 - Writing a spec from vague intent → `/spec`.
 - Reviewing an existing diff → `/pre-pr-review`.

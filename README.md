@@ -27,7 +27,7 @@ checks, and Diataxis docs.
 This toolkit **does not depend on gstack** and does not clone it. It is simpler,
 private, and hardened for work use:
 
-- ~23 skills + ~18 agents, all plain markdown — no external binaries, no telemetry,
+- ~24 skills + ~18 agents, all plain markdown — no external binaries, no telemetry,
   no analytics directory, no required browser automation.
 - Every reusable file is generic; nothing proprietary is ever persisted globally.
 - Safety hooks are minimal and "careful, not annoying" (confirm, don't block).
@@ -44,7 +44,7 @@ claude-code-toolkit/
   global/                          # installs into ~/.claude
     CLAUDE.md                      # global operating instructions
     settings.json                  # safe starter settings + hooks
-    skills/<name>/SKILL.md         # 23 reusable skills
+    skills/<name>/SKILL.md         # 24 reusable skills
     agents/<name>.md               # 18 reusable subagents
   templates/                       # examples to copy into real repos
     project-claude.md              # example project CLAUDE.md
@@ -126,6 +126,7 @@ read-only reviewers. Active `freeze`/`careful` hooks still apply to it.
 
 | Command | Role | Use it to |
 |---|---|---|
+| `/kickoff` | Tech lead | Ticket/feature → branch → investigate → ask only what matters → plan |
 | `/office-hours` | Founder/mentor | Challenge a product idea before building |
 | `/spec` | — | Turn vague intent into a precise, executable spec |
 | `/implementation-plan` | — | Scoped plan + risks before any code |
