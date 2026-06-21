@@ -13,13 +13,10 @@
     "ai-slop-cleanup": "off"
   },
   "permissions": {
+    "defaultMode": "dontAsk",
     "ask": [
-      "Bash(git push:*)",
-      "Bash(git reset --hard:*)",
-      "Bash(git clean:*)",
-      "Bash(git restore:*)",
-      "Bash(git checkout -- :*)",
-      "Bash(git branch -D:*)"
+      "Bash(git commit:*)",
+      "Bash(git push:*)"
     ],
     "deny": [
       "Read(./.env)",
