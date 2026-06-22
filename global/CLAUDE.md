@@ -14,6 +14,20 @@ These are my durable, cross-project instructions. A project's own
 - Treat completion claims as evidence-gated: a task is DONE only when verified.
   When unsure between DONE and UNVERIFIABLE, say UNVERIFIABLE.
 
+## Use skills before acting
+
+- Before responding to any request — including clarifying questions — scan the
+  available skills and agents. If there is even a small chance one applies,
+  invoke it. Knowing the concept is not the same as running the skill.
+- Order: **process skills first** (`brainstorming`, `systematic-debugging`,
+  `kickoff`, `writing-plans`), then **implementation skills** (`software-engineer`,
+  `frontend-design`). "Build X" → brainstorm/plan first. "Fix bug Y" →
+  systematic-debugging first.
+- Treat rigid skills (`test-driven-development`, `systematic-debugging`,
+  `verification-before-completion`) as discipline to follow exactly, not adapt away.
+- These instructions still win on conflict: an explicit user request or a
+  project `CLAUDE.md` overrides any skill.
+
 ## Conserve context — delegate exploration to subagents
 
 - For broad or multi-file searches and codebase exploration, dispatch a subagent

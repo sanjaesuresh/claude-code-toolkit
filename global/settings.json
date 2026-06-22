@@ -3,6 +3,9 @@
   "autoCompactEnabled": true,
   "maxSkillDescriptionChars": 300,
   "skillListingBudgetFraction": 0.1,
+  "enabledPlugins": {
+    "superpowers@claude-plugins-official": false
+  },
   "skillOverrides": {
     "spec": "off",
     "deep-codebase-audit": "off",
