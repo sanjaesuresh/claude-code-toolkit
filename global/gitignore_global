@@ -1,0 +1,18 @@
+# ============================================================
+# Global git excludes — installed to ~/.gitignore_global and
+# wired up via:  git config --global core.excludesfile ~/.gitignore_global
+#
+# Applies to EVERY repo on this machine without per-project setup.
+# Keep this tight: only generated working artifacts that should
+# never be committed. Do NOT add broad rules (e.g. *.md, docs/)
+# here — they would hide legitimate project documentation.
+# ============================================================
+
+# --- Claude workflow: generated plan/spec working docs ---
+# brainstorming -> docs/superpowers/specs/<date>-<topic>-design.md
+# writing-plans -> docs/superpowers/plans/<date>-<feature>.md
+# These are local thinking artifacts, not shippable source.
+docs/superpowers/plans/
+docs/superpowers/specs/
+**/docs/superpowers/plans/
+**/docs/superpowers/specs/

@@ -117,8 +117,43 @@ merge_settings() { # merge toolkit settings.json INTO existing, preserving user 
   fi
 }
 
+install_global_gitignore() { # wire ~/.gitignore_global into git's core.excludesfile, idempotently
+  local s="$SRC/gitignore_global"
+  [ -f "$s" ] || { say "skip gitignore_global (no source)"; return 0; }
+  local marker="# >>> claude-code-toolkit global excludes >>>"
+  local endmark="# <<< claude-code-toolkit global excludes <<<"
+  local block
+  block="$(printf '%s\n' "$marker"; cat "$s"; printf '%s\n' "$endmark")"
+
+  # Respect an existing excludesfile; otherwise default to ~/.gitignore_global.
+  local current target
+  current="$(git config --global core.excludesfile 2>/dev/null || true)"
+  if [ -n "$current" ]; then
+    target="${current/#\~/$HOME}"
+  else
+    target="$HOME/.gitignore_global"
+  fi
+
+  if [ "$DRY" -eq 1 ]; then
+    echo "  DRY: ensure toolkit excludes block in '$target' and set core.excludesfile"
+    return 0
+  fi
+
+  mkdir -p "$(dirname "$target")"
+  touch "$target"
+  if grep -qF "$marker" "$target" 2>/dev/null; then
+    # Replace the existing managed block so updates take effect.
+    awk -v m="$marker" -v e="$endmark" '
+      $0==m {skip=1; next} $0==e {skip=0; next} !skip' "$target" > "$target.tmp" && mv "$target.tmp" "$target"
+  fi
+  printf '%s\n' "$block" >> "$target"
+  [ -n "$current" ] || git config --global core.excludesfile "$HOME/.gitignore_global"
+  say "global gitignore: managed block written to $target"
+}
+
 place_file "CLAUDE.md" "CLAUDE.md"
 merge_settings
+install_global_gitignore
 place_dir "skills"
 place_dir "agents"
 

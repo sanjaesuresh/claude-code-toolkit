@@ -103,5 +103,16 @@ printf '%s' "$cmd" | grep -Eq '(printenv|env|cat[[:space:]]+.*\.env|echo[[:space
   && printf '%s' "$cmd" | grep -Eq '(curl|wget|nc|ncat|http)' \
   && ask "Command reads secrets/env and pipes to the network. Possible exfiltration. Confirm."
 
+# Staging/committing/pushing generated plan & spec working docs.
+# These are local thinking artifacts (docs/superpowers/plans|specs, *-design.md)
+# and are globally gitignored; this catches the case where the agent reaches for
+# `git add -f` or names the path explicitly. Returns "ask", never blocks.
+if printf '%s' "$cmd" | grep -Eq 'git[[:space:]]+(add|commit|push)([[:space:]]|$)'; then
+  printf '%s' "$cmd" | grep -Eq '(docs/superpowers/(plans|specs)|[^[:space:]]*-design\.md|[^[:space:]]*\.(plan|spec)\.md)' \
+    && ask "About to git add/commit/push a plan or spec doc. These are local working artifacts (kept out of git on purpose). Confirm you really want it tracked."
+  printf '%s' "$cmd" | grep -Eq 'git[[:space:]]+add[[:space:]]+(-[a-zA-Z]*[[:space:]]+)*-f' \
+    && ask "git add -f force-stages ignored files (plan/spec docs are ignored by design). Confirm."
+fi
+
 # Default: allow.
 exit 0
