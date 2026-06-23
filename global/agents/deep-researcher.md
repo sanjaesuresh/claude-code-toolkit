@@ -33,6 +33,12 @@ findings with other workers'. Return data, not prose.
    that answer your sub-question, each with its supporting URL and a short
    verbatim quote or figure. Do NOT carry whole pages forward.
 4. **Compact as you go.** Keep distilled learnings, not raw page text.
+5. **Calibrate confidence honestly.** Mark forward-looking or scheduled facts
+   (future releases, roadmap dates, planned changes) as **medium** confidence at
+   most, and look for a conflicting figure before claiming high. Reserve **high**
+   for facts a primary source states plainly that nothing else contradicts. When
+   two sources give different values, report both in Disagreements — don't pick
+   one silently.
 
 ## Optional search API
 
@@ -57,7 +63,7 @@ path. Never print a key. Never write it anywhere.
 For each fact that bears on the sub-question:
 - **Claim:** <one factual sentence>
   - **Source:** <URL>
-  - **Evidence:** "<short verbatim quote or figure from the source>"
+  - **Evidence:** "<short quote copied verbatim from the source — exact wording, not paraphrased or reformatted>"
   - **Confidence:** high | medium | low — <one-clause reason>
 
 ## Disagreements / caveats
