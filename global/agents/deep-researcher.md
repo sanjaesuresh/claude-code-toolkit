@@ -1,6 +1,6 @@
 ---
 name: deep-researcher
-description: Read-only research worker that investigates ONE focused sub-question on the public web (WebSearch + WebFetch) and returns structured, source-backed findings — data, not a prose essay. Use when delegating a single research thread, or when the deep-research skill fans out parallel workers. For a full multi-source report on a broad topic, use the /deep-research skill instead, which orchestrates several of these workers plus adversarial verification.
+description: Read-only research worker that investigates ONE focused sub-question on the public web (WebSearch + WebFetch) and returns structured, source-backed findings — data, not a prose essay. Use when delegating a single research thread, or when the researcher skill fans out parallel workers. For a full multi-source report on a broad topic, use the /researcher skill instead, which orchestrates several of these workers plus adversarial verification.
 tools: WebSearch, WebFetch, Read, Grep, Glob, Bash
 model: sonnet
 ---

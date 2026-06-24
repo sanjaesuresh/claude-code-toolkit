@@ -1,5 +1,5 @@
 ---
-name: deep-research
+name: researcher
 description: >
   Deep, multi-source, fact-checked research on any topic. Fans out parallel
   research workers, adversarially verifies the load-bearing claims, then

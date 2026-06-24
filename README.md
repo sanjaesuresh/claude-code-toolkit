@@ -52,7 +52,7 @@ written so Claude auto-invokes the right one.
 
 | Skill | What it does |
 |---|---|
-| `/deep-research` | Multi-source, fact-checked web research: clarifies an underspecified question, fans out parallel `deep-researcher` workers, adversarially verifies the load-bearing claims, and synthesizes a cited report with a confidence/gaps section. Effort-tiered (`--quick` / `--deep`) so trivial questions don't spawn a fleet. |
+| `/researcher` | Multi-source, fact-checked web research: clarifies an underspecified question, fans out parallel `deep-researcher` workers, adversarially verifies the load-bearing claims, and synthesizes a cited report with a confidence/gaps section. Effort-tiered (`--quick` / `--deep`) so trivial questions don't spawn a fleet. |
 
 **Review & audit** (read-only)
 
@@ -148,7 +148,7 @@ deeper-reasoning agents run on `opus`; the rest on `sonnet`.
 
 | Agent | What it does |
 |---|---|
-| `deep-researcher` | Read-only web research worker: investigates ONE sub-question with WebSearch/WebFetch and returns structured, source-backed findings. The `/deep-research` skill fans out several of these in parallel. |
+| `deep-researcher` | Read-only web research worker: investigates ONE sub-question with WebSearch/WebFetch and returns structured, source-backed findings. The `/researcher` skill fans out several of these in parallel. |
 
 ## Inspiration (not a dependency)
 
