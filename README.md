@@ -72,6 +72,7 @@ written so Claude auto-invokes the right one.
 |---|---|
 | `/debugging-incident-review` ⊘ | Investigate a bug/incident methodically — root cause before any fix. (Off: superseded by `/systematic-debugging`.) |
 | `/safe-refactor-plan` | Plan a refactor safely: tests first, small commits, rollback path. |
+| `/split-commit` | Review the working tree and split it into focused commits (feature / fix / refactor / docs / chore). Proposes the grouping and waits for approval; commits only — never pushes or branches. |
 
 **Understand & document**
 
