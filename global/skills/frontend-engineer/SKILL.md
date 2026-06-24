@@ -26,9 +26,10 @@ fast (LCP/INP/CLS in budget), and correct in its empty/loading/error/overflow st
 ## When to use something else
 
 - Backend / non-UI build or fix → `/software-engineer`.
-- Pure visual de-slop **audit** of existing code, or "does this look AI" → `/unslop-ui`
-  (this skill embeds the same catalog + scanner for the *build* path and calls that skill's
-  audit when the job is review-only).
+- Pure visual de-slop **audit** of existing code, or "does this look AI" → run this skill's
+  bundled `scripts/devibe_scan.py` (the Verify step below) for the review-only pass. The
+  standalone `unslop-ui` skill does the same audit with a fuller catalog if you have it
+  installed — it is optional and not bundled here.
 - Open-ended *creative* direction / "make it beautiful from scratch" → `/frontend-design`
   or `/impeccable`; then return here to engineer it properly.
 - Reviewing a UX/frontend plan before code → `/design-plan-review`.

@@ -35,19 +35,24 @@ DEST="$HOME/.claude"
 STAMP="$(date +%Y%m%d-%H%M%S 2>/dev/null || echo backup)"
 
 say() { echo "[install] $*"; }
-do_() { if [ "$DRY" -eq 1 ]; then echo "  DRY: $*"; else eval "$*"; fi; }
+do_() { if [ "$DRY" -eq 1 ]; then echo "  DRY: $*"; else "$@"; fi; }
 
 [ -d "$SRC" ] || { echo "Missing $SRC — run from the repo root." >&2; exit 1; }
 
 say "mode=$MODE  source=$SRC  dest=$DEST"
-do_ "mkdir -p '$DEST'"
+do_ mkdir -p "$DEST"
 
 backup() { # backup a path if it exists and we're about to replace it
   local target="$1"
   [ -e "$target" ] || [ -L "$target" ] || return 0
   local bdir="$DEST/.toolkit-backups/$STAMP"
-  do_ "mkdir -p '$bdir'"
-  do_ "cp -R '$target' '$bdir/' 2>/dev/null || true"
+  do_ mkdir -p "$bdir"
+  if [ "$DRY" -eq 1 ]; then
+    echo "  DRY: cp -R '$target' '$bdir/'"
+  else
+    # A failed backup must abort BEFORE we delete/overwrite the target.
+    cp -R "$target" "$bdir/" || { echo "[install] ERROR: backup of '$target' failed — aborting before overwrite." >&2; exit 1; }
+  fi
   say "backed up $(basename "$target") -> $bdir/"
 }
 
@@ -58,12 +63,12 @@ place_dir() { # place_dir <name>  (skills/agents/scripts)
   [ -d "$s" ] || { say "skip $name (no source)"; return 0; }
   backup "$d"
   if [ "$MODE" = "symlink" ]; then
-    do_ "rm -rf '$d'"
-    do_ "ln -s '$s' '$d'"
+    do_ rm -rf "$d"
+    do_ ln -s "$s" "$d"
   else
-    do_ "rm -rf '$d'"
-    do_ "mkdir -p '$d'"
-    do_ "cp -R '$s/.' '$d/'"
+    do_ rm -rf "$d"
+    do_ mkdir -p "$d"
+    do_ cp -R "$s/." "$d/"
   fi
   say "installed $name"
 }
@@ -73,10 +78,10 @@ place_file() { # place_file <relsrc> <reldest>
   [ -f "$s" ] || { say "skip $2 (no source)"; return 0; }
   backup "$d"
   if [ "$MODE" = "symlink" ]; then
-    do_ "rm -f '$d'"
-    do_ "ln -s '$s' '$d'"
+    do_ rm -f "$d"
+    do_ ln -s "$s" "$d"
   else
-    do_ "cp '$s' '$d'"
+    do_ cp "$s" "$d"
   fi
   say "installed $2"
 }
@@ -87,7 +92,7 @@ merge_settings() { # merge toolkit settings.json INTO existing, preserving user 
 
   # Fresh machine: nothing to preserve, just copy.
   if [ ! -f "$d" ]; then
-    do_ "cp '$s' '$d'"
+    do_ cp "$s" "$d"
     say "installed settings.json (new)"
     return 0
   fi
@@ -105,7 +110,7 @@ merge_settings() { # merge toolkit settings.json INTO existing, preserving user 
   # hooks, permissions, skillOverrides, token knobs). User-only keys (plugins,
   # theme, env, ...) are preserved.
   if [ "$DRY" -eq 1 ]; then
-    echo "  DRY: jq -s '.[0] * .[1]' '$d' '$s' > '$d' (deep-merge, preserve user keys)"
+    echo "  DRY: jq -s '.[0] * .[1]' '$d' '$s' > '$d.tmp' && mv '$d.tmp' '$d' (deep-merge, preserve user keys)"
   else
     if jq -s '.[0] * .[1]' "$d" "$s" > "$d.tmp" && jq empty "$d.tmp" 2>/dev/null; then
       mv "$d.tmp" "$d"
@@ -160,14 +165,18 @@ place_dir "agents"
 # scripts (sourced from repo root, copied into ~/.claude/scripts and chmod'd)
 backup "$DEST/scripts"
 if [ "$MODE" = "symlink" ]; then
-  do_ "rm -rf '$DEST/scripts'"
-  do_ "ln -s '$REPO/scripts' '$DEST/scripts'"
+  do_ rm -rf "$DEST/scripts"
+  do_ ln -s "$REPO/scripts" "$DEST/scripts"
 else
-  do_ "rm -rf '$DEST/scripts'"
-  do_ "mkdir -p '$DEST/scripts'"
-  do_ "cp -R '$REPO/scripts/.' '$DEST/scripts/'"
+  do_ rm -rf "$DEST/scripts"
+  do_ mkdir -p "$DEST/scripts"
+  do_ cp -R "$REPO/scripts/." "$DEST/scripts/"
 fi
-do_ "chmod +x '$DEST/scripts/'*.sh 2>/dev/null || true"
+if [ "$DRY" -eq 1 ]; then
+  echo "  DRY: chmod +x $DEST/scripts/*.sh"
+else
+  chmod +x "$DEST/scripts/"*.sh 2>/dev/null || true
+fi
 say "installed scripts (executable)"
 
 echo

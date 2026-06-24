@@ -19,9 +19,12 @@ encoding any proprietary information**.
 Invoke anything by `/name`, or just describe the task — every description is
 written so Claude auto-invokes the right one.
 
-> **Lean defaults:** 7 rarely-used/redundant skills ship **off** to save context
-> tokens (marked ⊘ below). They're not deleted — flip them on in
-> `settings.json` under `skillOverrides` (`"office-hours": "on"`) when you want them.
+> **Lean defaults:** 11 rarely-used, redundant, or superseded skills ship **off**
+> in `settings.json` to save context tokens. The 8 documented ones are marked ⊘
+> below; `test-driven-development`, `verification-before-completion`, and
+> `executing-plans` are also off (superseded by `software-engineer` /
+> `subagent-driven-development`) and not separately listed. They're not deleted —
+> flip any back on under `skillOverrides` (`"spec": "on"`) when you want them.
 
 ## Skills (27)
 
@@ -67,7 +70,7 @@ written so Claude auto-invokes the right one.
 
 | Skill | What it does |
 |---|---|
-| `/debugging-incident-review` | Investigate a bug/incident methodically — root cause before any fix. |
+| `/debugging-incident-review` ⊘ | Investigate a bug/incident methodically — root cause before any fix. (Off: superseded by `/systematic-debugging`.) |
 | `/safe-refactor-plan` | Plan a refactor safely: tests first, small commits, rollback path. |
 
 **Understand & document**
@@ -158,7 +161,7 @@ checks, and Diataxis docs.
 This toolkit **does not depend on gstack** and does not clone it. It is simpler,
 private, and hardened for work use:
 
-- ~26 skills + ~19 agents, all plain markdown — no external binaries, no telemetry,
+- 27 skills + 20 agents, all plain markdown — no external binaries, no telemetry,
   no analytics directory, no required browser automation.
 - Every reusable file is generic; nothing proprietary is ever persisted globally.
 - Safety hooks are minimal and "careful, not annoying" (confirm, don't block).
@@ -175,8 +178,8 @@ claude-code-toolkit/
   global/                          # installs into ~/.claude
     CLAUDE.md                      # global operating instructions
     settings.json                  # safe starter settings + hooks
-    skills/<name>/SKILL.md         # 25 reusable skills
-    agents/<name>.md               # 18 reusable subagents
+    skills/<name>/SKILL.md         # 27 reusable skills (+ process skills)
+    agents/<name>.md               # 20 reusable subagents
   templates/                       # examples to copy into real repos
     project-claude.md              # example project CLAUDE.md
     project-settings.json          # example project .claude/settings.json

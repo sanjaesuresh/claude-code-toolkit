@@ -41,7 +41,8 @@ When more than one skill could fire, these win:
   generic loop lacks — a deliberate not-AI-looking design, WCAG 2.2 a11y, Core
   Web Vitals, and every-state coverage. Use `frontend-design`/`impeccable` only
   for open-ended *creative* direction, then return to `frontend-engineer` to
-  build it; use `unslop-ui` for a review-only de-slop audit.
+  build it. For a review-only de-slop audit, run `frontend-engineer`'s bundled
+  `devibe_scan.py` (or the standalone `unslop-ui` skill if you have it installed).
 - **Execute a written plan with mostly-independent tasks:** `subagent-driven-development`.
 - **Write a multi-step plan artifact:** `writing-plans`. Not `implementation-plan`
   or `spec` (both off) — invoke `spec` only when "definition of done" is the hard

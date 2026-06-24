@@ -17,7 +17,12 @@ fi
 [ -z "$msg" ] && msg="Claude Code needs your attention."
 
 if [ "$(uname)" = "Darwin" ] && command -v osascript >/dev/null 2>&1; then
-  osascript -e "display notification \"${msg//\"/\'}\" with title \"Claude Code\"" >/dev/null 2>&1 || true
+  # Pass the message as an argv item so no shell/AppleScript metacharacters are interpreted.
+  osascript - "$msg" >/dev/null 2>&1 <<'APPLESCRIPT' || true
+on run argv
+    display notification (item 1 of argv) with title "Claude Code"
+end run
+APPLESCRIPT
 elif command -v notify-send >/dev/null 2>&1; then
   notify-send "Claude Code" "$msg" >/dev/null 2>&1 || true
 else
