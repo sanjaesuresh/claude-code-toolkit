@@ -14,6 +14,33 @@ These are my durable, cross-project instructions. A project's own
 - Treat completion claims as evidence-gated: a task is DONE only when verified.
   When unsure between DONE and UNVERIFIABLE, say UNVERIFIABLE.
 
+## Planning gate (NON-NEGOTIABLE)
+
+For any full project or medium-sized-or-larger feature, you MUST produce a
+written plan AND get my explicit approval BEFORE writing or editing any
+non-trivial code. No code during planning — the plan is the only artifact.
+
+- A detailed or complete spec from me is **not** approval to start coding. A
+  spec says WHAT; you still owe a plan for HOW — scope boundaries, risks,
+  assumptions, and a test plan — then you wait for my go-ahead.
+- This gate overrides any urge to "just build it" and overrides any skill that
+  would start implementing.
+
+**Only exceptions** (may implement without an approved plan):
+- a genuinely small change (a typo, a one-liner, an obvious localized fix), or
+- a change that needs little thinking and has a small, contained blast radius.
+
+If you are unsure whether something qualifies as small, treat it as NOT small
+and plan first. When in doubt, plan.
+
+**Plan-first is REQUIRED when any of these is true:**
+- more than ~100 lines meaningfully changed,
+- new modules, new dependencies, or schema / migration / API-contract changes,
+- anything touching architecture, data flow, money/trading logic, auth,
+  security, or persistence,
+- a multi-step build (scaffold + wire-up + tests), or
+- I asked to "build / implement / create" a feature or project.
+
 ## Use skills before acting
 
 - Before responding to any request — including clarifying questions — scan the

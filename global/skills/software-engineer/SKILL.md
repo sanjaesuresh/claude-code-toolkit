@@ -31,15 +31,19 @@ You can still call those from inside this loop — this skill just sequences the
 - Read the actual code you're about to change and its neighbors. Don't assume
   the architecture — inspect it. Find the call sites and existing tests.
 
-### 2. Plan (scale the rigor to the risk)
-- Trivial change (typo, one-liner, obvious fix): skip straight to step 3.
-- Non-trivial change: produce a short plan — files likely to change, the
-  approach, risks, and the test plan. For anything with real blast radius use
-  [[implementation-plan]], and consider a second pass from
+### 2. Plan — HARD GATE for medium+ work
+- Trivial change (typo, one-liner, obvious localized fix, small contained blast
+  radius): skip straight to step 3.
+- Everything else — medium-sized-or-larger, per the **Planning gate** in the
+  global CLAUDE.md — produce a written plan: files likely to change, the
+  approach, scope boundaries, risks, assumptions, and the test plan. For real
+  blast radius use [[implementation-plan]], and consider a second pass from
   [[engineering-plan-review]] (architecture/failure modes) or
   [[design-plan-review]] (UX) before writing code.
-- **Get the plan agreed before implementing** when the change is risky,
-  ambiguous, or large. The plan is the only artifact in this step.
+- **You may NOT advance to step 3 until I have approved the plan.** A complete
+  spec from me does not bypass this gate — a spec is WHAT, the plan is HOW.
+  Starting to write files before approval is a process violation, not a
+  shortcut. The plan is the only artifact in this step.
 - **Plan on Opus; execute on Sonnet.** Once the plan is agreed, either delegate
   the build to the `software-engineer` subagent (Sonnet) or `/model sonnet`, then
   return to Opus for the step-5 review. See "Model tiering" in the global CLAUDE.md.
