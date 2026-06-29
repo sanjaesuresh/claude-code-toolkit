@@ -25,6 +25,16 @@ non-trivial code. No code during planning — the plan is the only artifact.
   assumptions, and a test plan — then you wait for my go-ahead.
 - This gate overrides any urge to "just build it" and overrides any skill that
   would start implementing.
+- **Every plan under this gate is written to a file** — default
+  `docs/<feature>-plan.md`, or the path the spec designates — and kept updated
+  if scope changes. The file is the source of truth; chat gets a short prose
+  summary, not the whole plan. A chat-only plan does **not** satisfy this gate.
+- **Plans and approval requests are prose only.** Plain English — no code
+  snippets, no code blocks, no diffs in any plan, plan-review, or go-ahead ask.
+  File names and described behavior are fine; literal code appears only during
+  implementation, after approval.
+- Keep plan files **project-local**. In a work repo, never write plan contents
+  into any global file (see Safety & work-information rules).
 
 **Only exceptions** (may implement without an approved plan):
 - a genuinely small change (a typo, a one-liner, an obvious localized fix), or
@@ -141,6 +151,9 @@ office-hours, or any plan review), present each option with:
 - **Effort, both scales** — `(human: ~2 days / AI: ~20 min)`, so the real cost is visible.
 - **`[one-way]` or `[two-way]`** — is the decision hard to reverse, or cheap to change later?
 - A one-line **`Recommendation:`** with `(recommended)` on the option you'd pick, and why.
+
+Keep each option write-up **prose only** — describe the approach in plain
+English. No code snippets, no diffs.
 
 For `[one-way]` (irreversible/destructive) decisions, require an explicit, clear
 confirmation before proceeding — never act on a vague reply.

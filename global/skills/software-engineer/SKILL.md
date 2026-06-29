@@ -35,15 +35,19 @@ You can still call those from inside this loop — this skill just sequences the
 - Trivial change (typo, one-liner, obvious localized fix, small contained blast
   radius): skip straight to step 3.
 - Everything else — medium-sized-or-larger, per the **Planning gate** in the
-  global CLAUDE.md — produce a written plan: files likely to change, the
-  approach, scope boundaries, risks, assumptions, and the test plan. For real
-  blast radius use [[implementation-plan]], and consider a second pass from
+  global CLAUDE.md — **write the plan to a project-local file** (default
+  `docs/<feature>-plan.md`, or the spec's designated path) covering: files
+  likely to change, the approach, scope boundaries, risks, assumptions, and the
+  test plan. Keep it **plain English — no code or diffs** (file names and
+  described behavior only; literal code waits for step 3). For real blast radius
+  use [[implementation-plan]], and consider a second pass from
   [[engineering-plan-review]] (architecture/failure modes) or
   [[design-plan-review]] (UX) before writing code.
-- **You may NOT advance to step 3 until I have approved the plan.** A complete
-  spec from me does not bypass this gate — a spec is WHAT, the plan is HOW.
-  Starting to write files before approval is a process violation, not a
-  shortcut. The plan is the only artifact in this step.
+- **You may NOT advance to step 3 until I have approved the plan.** Write the
+  plan file first, then request approval and **name its path** in the go-ahead
+  ask. A complete spec from me does not bypass this gate — a spec is WHAT, the
+  plan is HOW. Starting to write files before approval is a process violation,
+  not a shortcut. The plan file is the only artifact in this step.
 - **Plan on Opus; execute on Sonnet.** Once the plan is agreed, either delegate
   the build to the `software-engineer` subagent (Sonnet) or `/model sonnet`, then
   return to Opus for the step-5 review. See "Model tiering" in the global CLAUDE.md.

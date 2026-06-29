@@ -7,16 +7,24 @@ description: Use when you have a spec or requirements for a multi-step task, bef
 
 ## Overview
 
-Write comprehensive implementation plans assuming the engineer has zero context for our codebase and questionable taste. Document everything they need to know: which files to touch for each task, code, testing, docs they might need to check, how to test it. Give them the whole plan as bite-sized tasks. DRY. YAGNI. TDD. Frequent commits.
+Write comprehensive implementation plans assuming the engineer has zero context for our codebase and questionable taste. Document everything they need to know in plain English: which files to touch for each task, the behavior to build, how to test it, and which docs to check. Give them the whole plan as bite-sized tasks. DRY. YAGNI. TDD. Frequent commits.
 
 Assume they are a skilled developer, but know almost nothing about our toolset or problem domain. Assume they don't know good test design very well.
+
+**Plans are plain English — no code.** Describe behavior, interfaces, and test cases in words. No code snippets, no code blocks, no diffs anywhere in the plan. Name files and describe what each must do; exact commands to run are fine, but literal implementation code is written only during execution, after the plan is approved.
 
 **Announce at start:** "I'm using the writing-plans skill to create the implementation plan."
 
 **Context:** If working in an isolated worktree, it should have been created via the `using-git-worktrees` skill at execution time.
 
+## Required output: the plan is a file
+
+The plan is a **file on disk**, not a chat message. A chat-only plan does not count and does not satisfy the planning gate. Write the plan to a file, then hand off (or request approval) by naming its path and giving a short prose summary in chat — never paste the whole plan into chat.
+
 **Save plans to:** `docs/superpowers/plans/YYYY-MM-DD-<feature-name>.md`
-- (User preferences for plan location override this default)
+- (User preferences for plan location override this default — e.g. `docs/<feature>-plan.md`.)
+
+If scope changes during planning or review, update the file; it is the source of truth.
 
 ## Scope Check
 
@@ -78,7 +86,9 @@ include this section.]
 
 ## Task Structure
 
-````markdown
+Describe each task in plain English. Name the files, name the functions and their inputs/outputs, and describe the behavior and test cases in words — no code blocks.
+
+```markdown
 ### Task N: [Component Name]
 
 **Files:**
@@ -87,58 +97,46 @@ include this section.]
 - Test: `tests/exact/path/to/test.py`
 
 **Interfaces:**
-- Consumes: [what this task uses from earlier tasks — exact signatures]
-- Produces: [what later tasks rely on — exact function names, parameter
-  and return types. A task's implementer sees only their own task; this
-  block is how they learn the names and types neighboring tasks use.]
+- Consumes: [what this task uses from earlier tasks — name the exact functions
+  and describe their parameters and return types in words]
+- Produces: [what later tasks rely on — name the exact functions and describe
+  their parameters and return types in words. A task's implementer sees only
+  their own task; this block is how they learn the names and types neighboring
+  tasks use.]
 
-- [ ] **Step 1: Write the failing test**
+- [ ] **Step 1: Write the failing test** — describe the test by name: which
+  behavior it pins down, the input it uses, and the expected result. In words,
+  not code.
 
-```python
-def test_specific_behavior():
-    result = function(input)
-    assert result == expected
+- [ ] **Step 2: Run the test to verify it fails** — give the exact command and
+  the expected failure (e.g. fails with "function not defined").
+
+- [ ] **Step 3: Write the minimal implementation** — describe what the function
+  must do to make the test pass: its name, inputs, output, and behavior. No code.
+
+- [ ] **Step 4: Run the test to verify it passes** — give the exact command and
+  the expected PASS.
+
+- [ ] **Step 5: Commit** — state the commit message and which files it covers.
 ```
-
-- [ ] **Step 2: Run test to verify it fails**
-
-Run: `pytest tests/path/test.py::test_name -v`
-Expected: FAIL with "function not defined"
-
-- [ ] **Step 3: Write minimal implementation**
-
-```python
-def function(input):
-    return expected
-```
-
-- [ ] **Step 4: Run test to verify it passes**
-
-Run: `pytest tests/path/test.py::test_name -v`
-Expected: PASS
-
-- [ ] **Step 5: Commit**
-
-```bash
-git add tests/path/test.py src/path/file.py
-git commit -m "feat: add specific feature"
-```
-````
 
 ## No Placeholders
 
 Every step must contain the actual content an engineer needs. These are **plan failures** — never write them:
 - "TBD", "TODO", "implement later", "fill in details"
-- "Add appropriate error handling" / "add validation" / "handle edge cases"
-- "Write tests for the above" (without actual test code)
-- "Similar to Task N" (repeat the code — the engineer may be reading tasks out of order)
-- Steps that describe what to do without showing how (code blocks required for code steps)
+- "Add appropriate error handling" / "add validation" / "handle edge cases" — say exactly what to validate and how it should behave
+- "Write tests for the above" — describe the actual test cases: behavior, input, expected result
+- "Similar to Task N" — repeat the description (the engineer may be reading tasks out of order)
+- Steps that name an action without describing the behavior — say precisely what it must do
 - References to types, functions, or methods not defined in any task
+
+**Specific does not mean code.** Be exact in plain English: name the function, state its inputs and output, and describe the behavior — without writing the implementation.
 
 ## Remember
 - Exact file paths always
-- Complete code in every step — if a step changes code, show the code
+- Complete behavior in every step — describe what the code must do, in words, not the code itself
 - Exact commands with expected output
+- Plain English only — no code snippets, no code blocks, no diffs
 - DRY, YAGNI, TDD, frequent commits
 
 ## Self-Review
@@ -149,7 +147,9 @@ After writing the complete plan, look at the spec with fresh eyes and check the 
 
 **2. Placeholder scan:** Search your plan for red flags — any of the patterns from the "No Placeholders" section above. Fix them.
 
-**3. Type consistency:** Do the types, method signatures, and property names you used in later tasks match what you defined in earlier tasks? A function called `clearLayers()` in Task 3 but `clearFullLayers()` in Task 7 is a bug.
+**3. Type consistency:** Do the function names, signatures, and property names you described in later tasks match what you described in earlier tasks? A function called `clearLayers()` in Task 3 but `clearFullLayers()` in Task 7 is a bug.
+
+**4. Plain-English scan:** Search the plan for code blocks, code snippets, or diffs. There should be none — convert any to a prose description of the behavior.
 
 If you find issues, fix them inline. No need to re-review — just fix and move on. If you find a spec requirement with no task, add the task.
 
